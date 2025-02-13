@@ -17,25 +17,38 @@ const SettingsContext = createContext<SettingsContextType | undefined>(undefined
 
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [weightUnit, setWeightUnit] = useState<WeightUnit>(() => {
-    const stored = localStorage.getItem("weightUnit");
-    return (stored === "kg" || stored === "lb") ? stored : "kg";
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem("weightUnit");
+      return (stored === "kg" || stored === "lb") ? stored : "kg";
+    }
+    return "kg";
   });
 
   const [accentColor, setAccentColor] = useState(() => {
-    return localStorage.getItem("accentColor") || "#3b82f6";
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem("accentColor") || "#3b82f6";
+    }
+    return "#3b82f6";
   });
 
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
-    return (localStorage.getItem("themeMode") as ThemeMode) || "dark";
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem("themeMode") as ThemeMode) || "dark";
+    }
+    return "dark";
   });
 
   const handleSetWeightUnit = (unit: WeightUnit) => {
-    localStorage.setItem("weightUnit", unit);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("weightUnit", unit);
+    }
     setWeightUnit(unit);
   };
 
   const handleSetAccentColor = (color: string) => {
-    localStorage.setItem("accentColor", color);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("accentColor", color);
+    }
     setAccentColor(color);
 
     // Convert hex to HSL and apply to CSS variables
