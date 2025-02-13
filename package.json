@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
-  "engines": {
-    "node": "16.x",
-    "npm": "9"
-  },
   "scripts": {
     "dev": "tsx server/index.ts",
     "build": "NODE_ENV=production tsc server/index.ts --outDir dist && vite build --outDir dist/public",
