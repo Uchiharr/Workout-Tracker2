@@ -1,13 +1,11 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
-import path, { dirname } from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-export default defineConfig({
+const { defineConfig } = require("vite");
+const react = require("@vitejs/plugin-react");
+const themePlugin = require("@replit/vite-plugin-shadcn-theme-json");
+const path = require("path");
+const runtimeErrorOverlay = require("@replit/vite-plugin-runtime-error-modal");
+
+module.exports = defineConfig({
   plugins: [react(), runtimeErrorOverlay(), themePlugin()],
   resolve: {
     alias: {
