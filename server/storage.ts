@@ -30,45 +30,15 @@ export class MemoryStorage implements IStorage {
   private nextId = 1;
 
   constructor() {
-    this.loadFromLocalStorage();
-  }
-
-  private loadFromLocalStorage() {
-    try {
-      const data = localStorage.getItem('workoutData');
-      if (data) {
-        const parsed = JSON.parse(data);
-        this.workouts = parsed.workouts || [];
-        this.exercises = parsed.exercises || [];
-        this.history = parsed.history || [];
-        this.nextId = Math.max(
-          ...this.workouts.map(w => w.id),
-          ...this.exercises.map(e => e.id),
-          ...this.history.map(h => h.id),
-          0
-        ) + 1;
-      }
-    } catch (error) {
-      console.error('Error loading from localStorage:', error);
-    }
-  }
-
-  private saveToLocalStorage() {
-    try {
-      localStorage.setItem('workoutData', JSON.stringify({
-        workouts: this.workouts,
-        exercises: this.exercises,
-        history: this.history
-      }));
-    } catch (error) {
-      console.error('Error saving to localStorage:', error);
-    }
+    this.workouts = [];
+    this.exercises = [];
+    this.history = [];
+    this.nextId = 1;
   }
 
   async createWorkout(workout: InsertWorkout): Promise<Workout> {
     const newWorkout = { ...workout, id: this.nextId++ };
     this.workouts.push(newWorkout);
-    this.saveToLocalStorage();
     return newWorkout;
   }
 
@@ -78,14 +48,12 @@ export class MemoryStorage implements IStorage {
 
     const updatedWorkout = { ...workout, id };
     this.workouts[index] = updatedWorkout;
-    this.saveToLocalStorage();
     return updatedWorkout;
   }
 
   async deleteWorkout(id: number): Promise<void> {
     this.workouts = this.workouts.filter(w => w.id !== id);
     this.exercises = this.exercises.filter(e => e.workoutId !== id);
-    this.saveToLocalStorage();
   }
 
   async getWorkout(id: number): Promise<Workout | undefined> {
@@ -99,7 +67,6 @@ export class MemoryStorage implements IStorage {
   async createExercise(exercise: InsertExercise): Promise<Exercise> {
     const newExercise = { ...exercise, id: this.nextId++ };
     this.exercises.push(newExercise);
-    this.saveToLocalStorage();
     return newExercise;
   }
 
@@ -111,13 +78,11 @@ export class MemoryStorage implements IStorage {
 
   async deleteExercisesForWorkout(workoutId: number): Promise<void> {
     this.exercises = this.exercises.filter(e => e.workoutId !== workoutId);
-    this.saveToLocalStorage();
   }
 
   async addHistory(history: InsertHistory): Promise<WorkoutHistory> {
     const newHistory = { ...history, id: this.nextId++ };
     this.history.push(newHistory);
-    this.saveToLocalStorage();
     return newHistory;
   }
 
@@ -161,7 +126,6 @@ export class MemoryStorage implements IStorage {
         ...this.history.map(h => h.id),
         0
       ) + 1;
-      this.saveToLocalStorage();
     } catch (error) {
       throw new Error('Invalid import data format');
     }
