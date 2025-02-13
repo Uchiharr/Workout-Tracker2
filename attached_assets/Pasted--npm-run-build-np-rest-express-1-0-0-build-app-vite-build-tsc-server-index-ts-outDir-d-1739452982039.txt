@@ -1,0 +1,55 @@
+$ npm run build
+np
+> rest-express@1.0.0 build /app
+> vite build && tsc server/index.ts --outDir dist && cp -r server/public/* dist/public/
+
+m /rbd/pnpm-volume/3a1658ed-9258-4edc-863c-aa700794475a/node_modules/.registry.npmjs.org/vite/5.4.14/node_modules/vite/bin/vite.js:2
+import { performance } from 'node:perf_hooks'
+       ^
+
+SyntaxError: Unexpected token {
+    at Module._compile (internal/modules/cjs/loader.js:723:23)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! rest-express@1.0.0 build: `vite build && tsc server/index.ts --outDir dist && cp -r server/public/* dist/public/`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the rest-express@1.0.0 build script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /tmp/npm-cache/10.24.1/_logs/2025-02-13T13_21_39_140Z-debug.log
+r
+app@celestial-ionized-dugout:~ 13:21 
+$ npm run start
+
+> rest-express@1.0.0 start /app
+> NODE_ENV=production node dist/index.js
+
+internal/modules/cjs/loader.js:638
+    throw err;
+    ^
+
+Error: Cannot find module '/app/dist/index.js'
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:636:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:562:25)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! rest-express@1.0.0 start: `NODE_ENV=production node dist/index.js`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the rest-express@1.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /tmp/npm-cache/10.24.1/_logs/2025-02-13T13_21_42_562Z-debug.log
